@@ -40,6 +40,11 @@ Instead of managing applications through spreadsheets, notes, or emails, Career 
 * JWT
 * bcrypt
 
+## Version Control
+
+- Git
+- GitHub
+
 **AI**
 
 * OpenAI API (or compatible AI API)
@@ -47,6 +52,16 @@ Instead of managing applications through spreadsheets, notes, or emails, Career 
 ## DSA Implementation
 
 As part of the capstone requirements, Data Structures & Algorithms will be implemented separately using **Java** to demonstrate concepts such as searching, sorting, stacks, queues, linked lists, hash maps, and graphs where applicable.
+
+# Development Workflow
+
+The project follows an industry-style Git workflow.
+
+- Daily Git Commits
+- Feature Branches
+- Pull Requests
+- Code Reviews
+- Incremental Development
 
 ## Goals
 
