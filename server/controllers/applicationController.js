@@ -69,10 +69,63 @@ const deleteApplication = (req, res) => {
   );
 };
 
+// Search
+const searchApplications = (req, res) => {
+  const company = req.query.company;
+
+  Application.searchApplications(
+    req.user.id,
+    company,
+    (err, results) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
+
+      res.json(results);
+    }
+  );
+};
+
+const filterByStatus = (req, res) => {
+  const status = req.params.status;
+
+  Application.filterByStatus(
+    req.user.id,
+    status,
+    (err, results) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
+
+      res.json(results);
+    }
+  );
+};
+
+const getUpcomingDeadlines = (req, res) => {
+
+  Application.getUpcomingDeadlines(
+    req.user.id,
+    (err, results) => {
+
+      if (err) {
+        return res.status(500).json(err);
+      }
+
+      res.json(results);
+
+    }
+  );
+
+};
+
 module.exports = {
   createApplication,
   getApplications,
   getApplicationById,
   updateApplication,
   deleteApplication,
+  searchApplications,
+  filterByStatus,
+  getUpcomingDeadlines,
 };

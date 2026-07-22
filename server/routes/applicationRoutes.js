@@ -10,11 +10,20 @@ const {
   getApplicationById,
   updateApplication,
   deleteApplication,
+  searchApplications,
+  filterByStatus,
+  getUpcomingDeadlines,
 } = require("../controllers/applicationController");
 
 router.post("/", verifyToken, createApplication);
 
 router.get("/", verifyToken, getApplications);
+
+router.get("/search", verifyToken, searchApplications);
+
+router.get("/status/:status", verifyToken, filterByStatus);
+
+router.get("/deadlines", verifyToken, getUpcomingDeadlines);
 
 router.get("/:id", verifyToken, getApplicationById);
 
