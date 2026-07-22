@@ -67,10 +67,42 @@ const deleteApplication = (id, userId, callback) => {
   db.query(sql, [id, userId], callback);
 };
 
+const searchApplications = (userId, company, callback) => {
+  const sql = `
+    SELECT * FROM applications
+    WHERE user_id = ? AND company LIKE ?
+  `;
+
+  db.query(sql, [userId, `%${company}%`], callback);
+};
+
+const filterByStatus = (userId, status, callback) => {
+  const sql = `
+    SELECT * FROM applications
+    WHERE user_id = ? AND status = ?
+  `;
+
+  db.query(sql, [userId, status], callback);
+};
+
+const getUpcomingDeadlines = (userId, callback) => {
+  const sql = `
+    SELECT *
+    FROM applications
+    WHERE user_id = ?
+    ORDER BY deadline ASC
+  `;
+
+  db.query(sql, [userId], callback);
+};
+
 module.exports = {
   createApplication,
   getApplications,
   getApplicationById,
   updateApplication,
   deleteApplication,
+  searchApplications,
+  filterByStatus,
+  getUpcomingDeadlines,
 };
