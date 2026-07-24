@@ -6,7 +6,6 @@ import useAuth from "../hooks/useAuth";
 
 function Login() {
   const navigate = useNavigate();
-
   const { login } = useAuth();
 
   const [form, setForm] = useState({
@@ -19,12 +18,10 @@ function Login() {
 
     try {
       const data = await loginUser(form);
-
       login(data);
-
       navigate("/dashboard");
-    } catch (err) {
-      alert("Invalid email or password");
+    } catch {
+      alert("Invalid Email or Password");
     }
   };
 
@@ -33,25 +30,27 @@ function Login() {
 
       <div className="auth-left">
 
-        <h1>CareerPilot</h1>
+        <h1>🌿 CareerPilot</h1>
+
+        <h2>Your Career Companion</h2>
 
         <p>
-          Organize internships, review resumes with AI,
-          manage applications and monitor your career
-          journey from one beautiful dashboard.
+          Track internships, monitor deadlines,
+          organize applications and improve your
+          resume with AI — all in one dashboard.
         </p>
 
         <div className="auth-features">
 
-          <div>📄 Track Internship Applications</div>
+          <div className="feature">📄 Internship Tracking</div>
 
-          <div>🤖 AI Resume Analysis</div>
+          <div className="feature">🤖 AI Resume Review</div>
 
-          <div>📊 Dashboard Analytics</div>
+          <div className="feature">📊 Career Dashboard</div>
 
-          <div>💻 DSA Integrated Features</div>
+          <div className="feature">📅 Deadline Management</div>
 
-          <div>🌿 Clean & Productive Workspace</div>
+          <div className="feature">🚀 Land Your Dream Internship</div>
 
         </div>
 
@@ -63,51 +62,46 @@ function Login() {
 
           <h2>Welcome Back 👋</h2>
 
+          <p className="auth-subtitle">
+            Login to continue
+          </p>
+
           <form onSubmit={handleSubmit}>
 
             <input
               type="email"
-              placeholder="Email Address"
-              value={form.email}
+              placeholder="Email"
               onChange={(e) =>
                 setForm({
                   ...form,
                   email: e.target.value,
                 })
               }
-              required
             />
 
             <input
               type="password"
               placeholder="Password"
-              value={form.password}
               onChange={(e) =>
                 setForm({
                   ...form,
                   password: e.target.value,
                 })
               }
-              required
             />
 
-            <button
-              className="auth-btn"
-              type="submit"
-            >
+            <button className="auth-btn">
               Login
             </button>
 
           </form>
 
-          <div className="auth-link">
+          <div className="auth-footer">
 
             Don't have an account?
 
-            <br />
-
             <Link to="/register">
-              Create Account
+              Register
             </Link>
 
           </div>

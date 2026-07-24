@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import {
   getApplications,
@@ -7,12 +6,10 @@ import {
 } from "../services/applicationService";
 
 import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import ApplicationCard from "../components/ApplicationCard";
 
 function Applications() {
-  const navigate = useNavigate();
-
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
@@ -45,24 +42,14 @@ function Applications() {
       <Sidebar />
 
       <div className="main">
-        <Navbar />
+        
 
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
             marginBottom: "30px",
           }}
         >
           <h1>Applications</h1>
-
-          <button
-            className="action-btn"
-            onClick={() => navigate("/add")}
-          >
-            + Add Application
-          </button>
         </div>
 
         {applications.length === 0 ? (
@@ -70,8 +57,8 @@ function Applications() {
             <h2>No Applications Yet</h2>
 
             <p>
-              Click <strong>+ Add Application</strong> to start tracking your
-              internship applications.
+              Go to <strong>Add Application</strong> from the sidebar to start
+              tracking your internship applications.
             </p>
           </div>
         ) : (

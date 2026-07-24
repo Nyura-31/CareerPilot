@@ -7,7 +7,6 @@ import {
 } from "../services/dashboardService";
 
 import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -21,6 +20,7 @@ function Dashboard() {
   });
 
   const [deadlines, setDeadlines] = useState([]);
+  const [completed, setCompleted] = useState([]);
 
   useEffect(() => {
     loadDashboard();
@@ -39,7 +39,23 @@ function Dashboard() {
         rejected: statData.rejected || 0,
       });
 
-      setDeadlines(deadlineData);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const upcoming = deadlineData.filter((item) => {
+        const date = new Date(item.deadline);
+        date.setHours(0, 0, 0, 0);
+        return date >= today;
+      });
+
+      const completedList = deadlineData.filter((item) => {
+        const date = new Date(item.deadline);
+        date.setHours(0, 0, 0, 0);
+        return date < today;
+      });
+
+      setDeadlines(upcoming);
+      setCompleted(completedList);
     } catch (err) {
       console.log(err);
     }
@@ -47,29 +63,34 @@ function Dashboard() {
 
   const cards = [
     {
-      title: "Total Applications",
+      title: "Applications",
       value: stats.total,
       icon: "📄",
+      color: "#355834",
     },
     {
       title: "Applied",
       value: stats.applied,
       icon: "🟡",
+      color: "#D6A84F",
     },
     {
       title: "Interview",
       value: stats.interview,
       icon: "💬",
+      color: "#7B68EE",
     },
     {
       title: "Offers",
       value: stats.offer,
       icon: "🎉",
+      color: "#1E9E58",
     },
     {
       title: "Rejected",
       value: stats.rejected,
       icon: "❌",
+      color: "#D9534F",
     },
   ];
 
@@ -78,8 +99,6 @@ function Dashboard() {
       <Sidebar />
 
       <div className="main">
-        <Navbar />
-
         <div className="dashboard">
           <h1>Welcome Back 👋</h1>
 
@@ -89,11 +108,16 @@ function Dashboard() {
 
           <div className="cards">
             {cards.map((card) => (
-              <div
-                key={card.title}
-                className="card glass"
-              >
-                <div className="icon">{card.icon}</div>
+              <div key={card.title} className="card glass">
+                <div
+                  className="icon"
+                  style={{
+                    background: `${card.color}20`,
+                    color: card.color,
+                  }}
+                >
+                  {card.icon}
+                </div>
 
                 <h2>{card.value}</h2>
 
@@ -102,7 +126,39 @@ function Dashboard() {
             ))}
           </div>
 
+          <div className="glass progress-card">
+            <h2>📊 Application Progress</h2>
+
+            <div className="progress-row">
+              <span>Applied</span>
+
+              <progress
+                value={stats.applied}
+                max={stats.total || 1}
+              />
+            </div>
+
+            <div className="progress-row">
+              <span>Interview</span>
+
+              <progress
+                value={stats.interview}
+                max={stats.total || 1}
+              />
+            </div>
+
+            <div className="progress-row">
+              <span>Offers</span>
+
+              <progress
+                value={stats.offer}
+                max={stats.total || 1}
+              />
+            </div>
+          </div>
+
           <div className="dashboard-grid">
+
             <div className="glass card">
               <h2>📅 Upcoming Deadlines</h2>
 
@@ -110,18 +166,13 @@ function Dashboard() {
                 <p>No upcoming deadlines.</p>
               ) : (
                 deadlines.map((item) => (
-                  <div
-                    className="deadline"
-                    key={item.id}
-                  >
+                  <div className="deadline" key={item.id}>
                     <strong>{item.company}</strong>
 
                     <p>{item.role}</p>
 
                     <span>
-                      {new Date(
-                        item.deadline
-                      ).toLocaleDateString()}
+                      {new Date(item.deadline).toLocaleDateString()}
                     </span>
                   </div>
                 ))
@@ -129,6 +180,26 @@ function Dashboard() {
             </div>
 
             <div className="glass card">
+              <h2>✅ Completed Deadlines</h2>
+
+              {completed.length === 0 ? (
+                <p>No completed deadlines.</p>
+              ) : (
+                completed.map((item) => (
+                  <div className="deadline" key={item.id}>
+                    <strong>{item.company}</strong>
+
+                    <p>{item.role}</p>
+
+                    <span>
+                      {new Date(item.deadline).toLocaleDateString()}
+                    </span>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* <div className="glass card">
               <h2>⚡ Quick Actions</h2>
 
               <button
@@ -151,7 +222,8 @@ function Dashboard() {
               >
                 🤖 Resume Review
               </button>
-            </div>
+            </div> */}
+
           </div>
         </div>
       </div>

@@ -1,43 +1,59 @@
+const axios = require("axios");
+
 const analyzeResume = async (resumeText) => {
+  const prompt = `
+You are an expert ATS Resume Reviewer.
 
-    // AI Resume Analysis Logic
-    // Replace with external AI model later
+Analyze the following resume.
 
-    const skills = [
-        "Java",
-        "React",
-        "Node.js",
-        "MySQL"
-    ];
+Return ONLY a valid JSON object.
 
-    const missingSkills = [
-        "Docker",
-        "Cloud Deployment",
-        "System Design"
-    ];
+Do not use markdown.
+Do not use code fences.
+Do not write any explanation.
 
+Return exactly this structure:
 
-    return JSON.stringify({
+{
+  "score": 90,
+  "strong_skills": [],
+  "missing_skills": [],
+  "suggestions": []
+}
 
-        score: 85,
+Resume:
 
-        strong_skills: skills,
+${resumeText}
+`;
 
-        missing_skills: missingSkills,
-
-        suggestions: [
-            "Add measurable achievements in projects",
-            "Include internship experience",
-            "Improve cloud and deployment skills"
+  try {
+    const response = await axios.post(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        model: "openrouter/free",
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
         ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-        analyzed_text_length: resumeText.length
-
-    });
-
+    return response.data.choices[0].message.content;
+  } catch (err) {
+    console.log("STATUS:", err.response?.status);
+    console.log("DATA:", err.response?.data);
+    throw err;
+  }
 };
 
-
 module.exports = {
-    analyzeResume
+  analyzeResume,
 };
