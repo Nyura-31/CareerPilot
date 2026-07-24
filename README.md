@@ -1,143 +1,131 @@
 # CareerPilot 🚀
 
-**CareerPilot** is a full-stack Career Management Platform designed to help students organize, track, and optimize their internship and job application journey from one centralized dashboard.
+CareerPilot is a full-stack **Career Management Platform** designed to help students organize, track, and manage their internship and job application journey from a single dashboard.
 
-Instead of managing applications through spreadsheets, notes, bookmarks, and emails, CareerPilot provides a structured workspace where students can track applications, manage resumes, monitor deadlines, prepare for interviews, and gain insights into their overall job search progress.
+Instead of managing applications through spreadsheets, notes, emails, and multiple job portals, CareerPilot provides a centralized workspace where students can track applications, monitor deadlines, analyze progress, and receive AI-powered resume feedback.
 
 ---
 
-## 📌 Problem Statement
+# 📌 Problem Statement
 
-Students often apply to dozens of internships and full-time opportunities across multiple platforms such as LinkedIn, company career portals, Internshala, Wellfound, and others.
+Students often apply for multiple internships and job opportunities through platforms like LinkedIn, company career portals, and other job boards.
 
 Managing these applications becomes difficult because information is scattered across:
 
-- Notes
-- Emails
-- Browser bookmarks
-- Excel sheets
-- Different job portals
+* Notes
+* Emails
+* Excel sheets
+* Browser bookmarks
+* Different job portals
 
-CareerPilot solves this by providing one platform to organize the complete application process.
+CareerPilot solves this problem by providing one organized platform to manage the complete application journey.
 
 ---
 
 # 🎯 Objectives
 
-- Organize internship and job applications
-- Track application progress
-- Manage multiple resume versions
-- Never miss important deadlines
-- Visualize application statistics
-- Assist students with AI-powered career tools
-- Build a scalable software engineering project following industry practices
+* Organize internship and job applications
+* Track application progress
+* Manage application statuses
+* Monitor deadlines
+* Visualize career progress through dashboards
+* Provide AI-based resume analysis
+* Demonstrate full-stack software engineering practices
 
 ---
 
 # ✨ Features
 
-## User Authentication
+## 🔐 User Authentication
 
-- Secure Registration
-- Login & Logout
-- JWT Authentication
-- Password Encryption
-- Protected Routes
+Implemented:
 
----
+* User Registration
+* User Login
+* Password Encryption using bcrypt
+* JWT Authentication
+* Protected API Routes
 
-## Internship Management
+### Authentication Flow
 
-- Add Internship
-- Edit Internship
-- Delete Internship
-- View All Applications
-- Search Applications
-- Filter Applications
-- Sort Applications
-
-Each internship stores:
-
-- Company Name
-- Job Role
-- Location
-- Employment Type
-- Application Link
-- Deadline
-- Salary (Optional)
-- Priority
-- Notes
-- Resume Version Used
-- Current Status
+Users can create accounts and securely access their personal application dashboard.
 
 ---
 
-## Application Workflow
+# 💼 Internship Application Management
 
-Applications can move through different stages:
+Users can:
 
-- Saved
-- Applied
-- Online Assessment
-- Assessment Completed
-- Interview Scheduled
-- Offer Received
-- Rejected
+* Add applications
+* View all applications
+* Edit applications
+* Delete applications
+* Search applications
+* Filter applications by status
 
----
+Each application contains:
 
-## Dashboard
-
-Overview of:
-
-- Total Applications
-- Upcoming Deadlines
-- Interviews
-- Offers
-- Rejections
-- Pending Applications
+* Company Name
+* Role
+* Status
+* Deadline
+* Location
+* Notes
 
 ---
 
-## Resume Manager
+# 📊 Application Workflow
 
-- Upload Resume
-- Store Multiple Resume Versions
-- Track Resume Used for Each Application
+Applications can be tracked through different stages:
 
----
+* Applied
+* Interview
+* Offer
+* Rejected
 
-## Calendar
-
-- Deadline Tracking
-- Interview Schedule
-- Upcoming Events
+These statuses help students understand their current internship progress.
 
 ---
 
-## Analytics
+# 📈 Dashboard
 
-- Applications per Month
-- Status Distribution
-- Offer Rate
-- Interview Rate
-- Monthly Progress
+CareerPilot provides an overview of the user's internship journey.
 
----
+Dashboard includes:
 
-## AI Features
-
-- Resume Feedback
-- Resume Improvement Suggestions
-- Cover Letter Generator
-- Interview Question Generator
+* Total Applications
+* Applications Applied
+* Interviews
+* Offers
+* Rejections
+* Upcoming Deadlines
+* Application Progress Visualization
 
 ---
 
-## Notifications
+# 🤖 AI Resume Review
 
-- Upcoming Deadline Reminders
-- Interview Reminders
+CareerPilot integrates AI using **OpenRouter API**.
+
+Users can paste their resume content and receive:
+
+* Resume Score
+* Strong Skills Identification
+* Missing Skills
+* Improvement Suggestions
+
+AI Model Integration:
+
+* OpenRouter Free AI Models
+
+---
+
+# 🔎 Search & Filtering
+
+Implemented APIs for:
+
+* Searching applications by company name
+* Filtering applications by application status
 
 ---
 
@@ -145,109 +133,266 @@ Overview of:
 
 ## Frontend
 
-- React.js
-- Vite
-- Tailwind CSS
-- React Router
-- Axios
+* React.js
+* Vite
+* React Router
+* Axios
+* CSS
 
 ---
 
 ## Backend
 
-- Node.js
-- Express.js
+* Node.js
+* Express.js
 
 ---
 
 ## Database
 
-- MongoDB
-- Mongoose
+* MySQL
 
 ---
 
 ## Authentication
 
-- JSON Web Token (JWT)
-- bcrypt
-
----
-
-## File Storage
-
-- Cloudinary
+* JSON Web Token (JWT)
+* bcrypt
 
 ---
 
 ## AI Integration
 
-- Google Gemini API
+* OpenRouter API
 
 ---
 
-## Email Services
+## Development Tools
 
-- Nodemailer
-
----
-
-## Charts & Visualization
-
-- Recharts
+* Git
+* GitHub
+* VS Code
+* Bruno API Client
 
 ---
 
-## Version Control
+# 🔌 REST API Documentation
 
-- Git
-- GitHub
+## Authentication APIs
+
+### Register User
+
+```
+POST /api/auth/register
+```
+
+Request:
+
+```json
+{
+"name":"Sathvika",
+"email":"example@gmail.com",
+"password":"password"
+}
+```
 
 ---
 
-## Deployment
+### Login User
 
-### Frontend
+```
+POST /api/auth/login
+```
 
-- Vercel
+Response:
 
-### Backend
-
-- Render
-
-### Database
-
-- MongoDB Atlas
+```json
+{
+"token":"JWT_TOKEN"
+}
+```
 
 ---
 
-# 🧠 Data Structures & Algorithms Used
+# Application APIs
 
-The project integrates DSA concepts where applicable.
+All application routes require JWT authentication.
 
-### Searching
+Header:
 
-- Efficient searching of internships
+```
+Authorization: Bearer TOKEN
+```
 
-### Sorting
+---
 
-- Deadline
-- Company
-- Priority
-- Status
-- Salary
+## Create Application
 
-### Hash Maps
+```
+POST /api/applications
+```
 
-- Fast lookup of applications and statistics
+Example:
 
-### Queues
+```json
+{
+"company":"Google",
+"role":"Software Engineer Intern",
+"status":"Applied",
+"deadline":"2026-08-01",
+"location":"Bangalore",
+"notes":"Applied through careers portal"
+}
+```
 
-- Notification scheduling
+---
 
-### Priority-based Processing
+## Get All Applications
 
-- Upcoming deadlines
+```
+GET /api/applications
+```
+
+---
+
+## Get Application By ID
+
+```
+GET /api/applications/:id
+```
+
+---
+
+## Update Application
+
+```
+PUT /api/applications/:id
+```
+
+---
+
+## Delete Application
+
+```
+DELETE /api/applications/:id
+```
+
+---
+
+## Search Applications
+
+```
+GET /api/applications/search?company=Google
+```
+
+---
+
+## Filter By Status
+
+```
+GET /api/applications/status/:status
+```
+
+Example:
+
+```
+GET /api/applications/status/Interview
+```
+
+---
+
+# Dashboard APIs
+
+## Get Dashboard Statistics
+
+```
+GET /api/dashboard/stats
+```
+
+Returns:
+
+* Total applications
+* Applied count
+* Interview count
+* Offer count
+* Rejected count
+
+---
+
+## Get Upcoming Deadlines
+
+```
+GET /api/applications/deadlines
+```
+
+---
+
+# AI API
+
+## Resume Analysis
+
+```
+POST /api/ai/analyze
+```
+
+Request:
+
+```json
+{
+"resume_text":"Resume content here"
+}
+```
+
+Response:
+
+```json
+{
+"score":85,
+"strong_skills":[
+"Java",
+"React"
+],
+"missing_skills":[
+"Docker",
+"Cloud"
+],
+"suggestions":[
+"Add measurable achievements"
+]
+}
+```
+
+---
+
+# 🧠 Data Structures & Algorithms Integration
+
+The project applies DSA concepts where applicable:
+
+## Searching
+
+Used for:
+
+* Finding applications by company
+
+## Sorting
+
+Used for:
+
+* Organizing deadlines
+* Managing application lists
+
+## Hash Maps
+
+Used for:
+
+* Dashboard statistics
+* Status counting
+
+## Priority Handling
+
+Used for:
+
+* Deadline tracking
 
 ---
 
@@ -260,75 +405,71 @@ CareerPilot/
 
 ├── client/
 
-│ ├── components/
+│   ├── components/
 
-│ ├── pages/
+│   ├── pages/
 
-│ ├── hooks/
+│   ├── services/
 
-│ ├── services/
+│   ├── hooks/
 
-│ ├── context/
-
-│ └── assets/
+│   └── context/
 
 │
 
 ├── server/
 
-│ ├── controllers/
+│   ├── controllers/
 
-│ ├── models/
+│   ├── models/
 
-│ ├── routes/
+│   ├── routes/
 
-│ ├── middleware/
+│   ├── middleware/
 
-│ ├── services/
+│   ├── services/
 
-│ ├── utils/
-
-│ └── config/
+│   └── config/
 
 │
 
-├── README.md
-
-└── package.json
+└── README.md
 ```
 
 ---
 
 # 🚀 Future Enhancements
 
-- Gmail Integration
-- Browser Extension
-- Internship Recommendation System
-- Company Review Portal
-- Recruiter Dashboard
-- Skill Gap Analyzer
-- Learning Roadmap Generator
-- Mobile Application
-- Team Collaboration Features
+Planned improvements:
+
+* Multiple resume version management
+* Resume upload and storage
+* Email reminders
+* Interview calendar
+* Internship recommendation system
+* Skill gap analysis
+* Learning roadmap generation
+* Mobile application
+* Browser extension
 
 ---
 
-# 👨‍💻 Project Goals
+# 📌 Capstone Project Alignment
 
-This project is being developed as part of the **Integrated Software Engineering Capstone Project** under the Product Engineering Proficiency & DSA Mastery Bootcamp.
+CareerPilot is developed as part of the:
 
-The objective is to demonstrate:
+**Integrated Software Engineering Capstone Project**
+under the **Product Engineering Proficiency & DSA Mastery Bootcamp**
 
-- Product Engineering
-- Full Stack Development
-- Database Design
-- REST API Development
-- Authentication & Security
-- AI Integration
-- Software Architecture
-- GitHub Collaboration
-- Open Source Workflow
-- Deployment
-- Data Structures & Algorithms
+The project demonstrates:
 
----
+✅ Full Stack Development
+✅ REST API Development
+✅ Authentication & Security
+✅ Database Design
+✅ AI Integration
+✅ Software Architecture
+✅ GitHub Collaboration
+✅ Open Source Workflow
+✅ DSA Application
+
