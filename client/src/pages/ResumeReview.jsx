@@ -1,109 +1,11 @@
 import { useState } from "react";
+import { Bot, CheckCircle2, Lightbulb, Sparkles, Target, XCircle } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import { analyzeResume } from "../services/aiService";
 
 function ResumeReview() {
-  const [resume, setResume] = useState("");
-  const [result, setResult] = useState(null);
-
-  const handleAnalyze = async () => {
-    try {
-      const data = await analyzeResume(resume);
-      setResult(data.analysis);
-    } catch (err) {
-      alert("AI Analysis Failed");
-    }
-  };
-
-  return (
-    <div className="layout">
-      <Sidebar />
-
-      <div className="main">
-
-        <div className="form-card">
-
-          <h1
-            style={{
-              textAlign: "center",
-              color: "#355834",
-              marginBottom: "30px",
-            }}
-          >
-            🤖 AI Resume Review
-          </h1>
-
-          <p
-            style={{
-              textAlign: "center",
-              color: "#666",
-              marginBottom: "25px",
-            }}
-          >
-            Paste your resume below and receive AI-powered feedback.
-          </p>
-
-          <textarea
-            className="resume-textarea"
-            placeholder="Paste your complete resume here..."
-            value={resume}
-            onChange={(e) => setResume(e.target.value)}
-          />
-
-          <button
-            className="btn btn-primary"
-            style={{
-              width: "100%",
-              marginTop: "25px",
-            }}
-            onClick={handleAnalyze}
-          >
-            🚀 Analyze Resume
-          </button>
-
-          {result && (
-            <div className="analysis-card">
-
-              <h2>Resume Score</h2>
-
-              <div className="score">
-                {result.score}/100
-              </div>
-
-              <hr />
-
-              <h3>✅ Strong Skills</h3>
-
-              <ul>
-                {result.strong_skills.map((skill) => (
-                  <li key={skill}>{skill}</li>
-                ))}
-              </ul>
-
-              <h3>❌ Missing Skills</h3>
-
-              <ul>
-                {result.missing_skills.map((skill) => (
-                  <li key={skill}>{skill}</li>
-                ))}
-              </ul>
-
-              <h3>💡 Suggestions</h3>
-
-              <ul>
-                {result.suggestions.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-
-            </div>
-          )}
-
-        </div>
-
-      </div>
-    </div>
-  );
+  const [resume, setResume] = useState(""); const [result, setResult] = useState(null);
+  const handleAnalyze = async () => { try { const data = await analyzeResume(resume); setResult(data.analysis); } catch (err) { alert("AI Analysis Failed"); } };
+  return <div className="layout"><Sidebar /><main className="main"><section className="resume-workspace"><header className="resume-header"><span className="resume-header-icon"><Bot size={22} /></span><div><p className="eyebrow">AI RESUME REVIEW</p><h1>Make your resume sharper</h1><p>Paste your resume to surface strengths, gaps, and practical next steps.</p></div></header><section className="resume-editor"><label htmlFor="resume">Your resume</label><textarea id="resume" className="resume-textarea" placeholder="Paste your complete resume here..." value={resume} onChange={(e) => setResume(e.target.value)} /><button className="btn btn-primary analyze-btn" onClick={handleAnalyze}><Sparkles size={17} /> Analyze resume</button></section>{result && <section className="analysis-card"><div className="analysis-overview"><div><p className="eyebrow">RESUME SCORE</p><h2>Overall readiness</h2><p>Your score is a guide to help prioritize improvements.</p></div><div className="score"><strong>{result.score}</strong><span>/100</span></div></div><div className="analysis-grid"><div className="analysis-section strong"><h3><CheckCircle2 size={18} /> Strong skills</h3><div className="skill-pills">{result.strong_skills.map((skill) => <span key={skill}>{skill}</span>)}</div></div><div className="analysis-section missing"><h3><XCircle size={18} /> Missing skills</h3><div className="skill-pills">{result.missing_skills.map((skill) => <span key={skill}>{skill}</span>)}</div></div><div className="analysis-section suggestions"><h3><Lightbulb size={18} /> Suggestions</h3><ul>{result.suggestions.map((item, index) => <li key={index}><Target size={16} />{item}</li>)}</ul></div></div></section>}</section></main></div>;
 }
-
 export default ResumeReview;
