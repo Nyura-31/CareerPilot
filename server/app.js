@@ -18,7 +18,7 @@ app.use(cors({
   origin: "https://career-pilot-git-main-sathvika-dharani-bhartus-projects.vercel.app/",
   credentials: true
 }));
-app.options("*", cors());
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
